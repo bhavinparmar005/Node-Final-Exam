@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Register — RecipeShare</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <%- include('navbar') %>
+
+    <main class="container">
+      <div class="form-container">
+        <h2>Create Account</h2>
+
+        <% if (typeof error !== 'undefined') { %>
+        <div class="flash error"><%= error %></div>
+        <% } %>
+
+        <form action="/auth/register" method="POST" class="auth-form">
+          <label>
+            <span>Username</span>
+            <input
+              type="text"
+              name="username"
+              required
+              placeholder="eg. chef_bhav"
+            />
+          </label>
+
+          <label>
+            <span>Email</span>
+            <input
+              type="email"
+              name="email"
+              required
+              placeholder="you@domain.com"
+            />
+          </label>
+
+          <label>
+            <span>Password</span>
+            <input
+              type="password"
+              name="password"
+              required
+              placeholder="Choose a password"
+            />
+          </label>
+
+          <!-- For safety we default role to "user". If you want admin creation, handle server-side. -->
+          <input type="hidden" name="role" value="user" />
+
+          <button type="submit" class="btn">Register</button>
+        </form>
+
+        <p class="muted">Already registered? <a href="/login">Login</a></p>
+      </div>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title><%= recipe.title %> — RecipeShare</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <%- include('navbar') %>
+
+    <main class="container">
+      <article class="recipe-detail">
+        <img
+          class="detail-image"
+          src="<%= recipe.image || '/images/default-recipe.jpg' %>"
+          alt="<%= recipe.title %>"
+        />
+        <h1><%= recipe.title %></h1>
+        <p class="muted">
+          By <%= recipe.createdBy?.username || 'Unknown' %> • <%= new
+          Date(recipe.createdAt).toLocaleDateString() %>
+        </p>
+
+        <section class="desc">
+          <h3>Description</h3>
+          <p><%= recipe.description %></p>
+        </section>
+
+        <section class="ingredients">
+          <h3>Ingredients</h3>
+          <ul>
+            <% (recipe.ingredients || []).forEach(function(ing) { %>
+            <li><%= ing %></li>
+            <% }) %>
+          </ul>
+        </section>
+
+        <section class="instructions">
+          <h3>Instructions</h3>
+          <p><%= recipe.instructions %></p>
+        </section>
+
+        <hr />
+
+        <!-- COMMENTS -->
+        <section class="comments-wrap">
+          <h3>Comments</h3>
+
+          <div class="comments">
+            <% if (recipe.comments && recipe.comments.length > 0) { %> <%
+            recipe.comments.forEach(function(comment) { %>
+            <div class="comment">
+              <p>
+                <strong><%= comment.user?.username || 'User' %>:</strong> <%=
+                comment.text %>
+              </p>
+
+              <% if (user && (String(user.id) === String(comment.user?._id) ||
+              user.role === 'admin')) { %>
+              <form
+                action="/api/comments/<%= comment._id %>?_method=DELETE"
+                method="POST"
+                class="inline-form small"
+              >
+                <input type="hidden" name="_method" value="DELETE" />
+                <button type="submit" class="btn small danger">Delete</button>
+              </form>
+              <% } %>
+            </div>
+            <% }) %> <% } else { %>
+            <p class="muted">No comments yet — be first 😊</p>
+            <% } %>
+          </div>
+
+          <% if (user) { %>
+          <form
+            action="/comments/<%= recipe._id %>"
+            method="POST"
+            class="comment-form"
+          >
+            <textarea
+              name="text"
+              rows="3"
+              placeholder="Write a helpful comment..."
+              required
+            ></textarea>
+            <button type="submit" class="btn">Post Comment</button>
+          </form>
+          <% } else { %>
+          <p class="muted">
+            Please <a href="/login">login</a> to leave a comment.
+          </p>
+          <% } %>
+        </section>
+      </article>
+    </main>
+  </body>
+</html>

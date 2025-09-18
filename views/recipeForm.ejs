@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Add Recipe — RecipeShare</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <%- include('navbar') %>
+
+    <main class="container">
+      <div class="form-container">
+        <h2>Add New Recipe</h2>
+
+        <form
+          action="/api/recipes/add"
+          method="POST"
+          enctype="multipart/form-data"
+          class="recipe-form"
+        >
+          <label>
+            <span>Title</span>
+            <input
+              type="text"
+              name="title"
+              required
+              placeholder="e.g. Classic Masala Pasta"
+            />
+          </label>
+
+          <label>
+            <span>Short Description</span>
+            <textarea
+              name="description"
+              rows="2"
+              required
+              placeholder="A one-liner about the dish"
+            ></textarea>
+          </label>
+
+          <label>
+            <span>Ingredients (comma separated)</span>
+            <input
+              type="text"
+              name="ingredients"
+              required
+              placeholder="tomato, pasta, garlic, olive oil"
+            />
+          </label>
+
+          <label>
+            <span>Instructions</span>
+            <textarea
+              name="instructions"
+              rows="6"
+              required
+              placeholder="Step by step instructions..."
+            ></textarea>
+          </label>
+
+          <label>
+            <span>Image (optional)</span>
+            <input type="file" name="image" accept="image/*" />
+          </label>
+
+          <button type="submit" class="btn">Add Recipe</button>
+        </form>
+      </div>
+    </main>
+  </body>
+</html>

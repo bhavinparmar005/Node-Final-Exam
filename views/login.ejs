@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Login — RecipeShare</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <%- include('navbar') %>
+
+    <main class="container">
+      <div class="form-container">
+        <h2>Login</h2>
+
+        <% if (typeof error !== 'undefined') { %>
+        <div class="flash error"><%= error %></div>
+        <% } %>
+
+        <form action="/auth/login" method="POST" class="auth-form">
+          <label>
+            <span>Email</span>
+            <input
+              type="email"
+              name="email"
+              required
+              placeholder="you@domain.com"
+            />
+          </label>
+
+          <label>
+            <span>Password</span>
+            <input
+              type="password"
+              name="password"
+              required
+              placeholder="••••••••"
+            />
+          </label>
+
+          <button type="submit" class="btn">Login</button>
+        </form>
+
+        <p class="muted">
+          Don't have an account? <a href="/register">Register</a>
+        </p>
+      </div>
+    </main>
+  </body>
+</html>

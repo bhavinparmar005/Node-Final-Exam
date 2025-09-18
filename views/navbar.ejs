@@ -1,0 +1,27 @@
+<nav class="navbar">
+  <div class="nav-left">
+    <a class="brand" href="/">RecipeShare</a>
+    <a href="/">Home</a>
+    <a href="/">Recipes</a>
+  </div>
+
+  <div class="nav-right">
+    <% if (user) { %>
+    <a href="/recipes/add">Add Recipe</a>
+    <a href="/my-recipes">My Recipes</a>
+
+    <form action="/auth/logout" method="GET" class="inline-form">
+      <button
+        type="submit"
+        class="link-button"
+        style="color: #007a7a; font-size: 16px"
+      >
+        Logout
+      </button>
+    </form>
+    <% } else { %>
+    <a href="/login">Login</a>
+    <a href="/register">Register</a>
+    <% } %>
+  </div>
+</nav>
